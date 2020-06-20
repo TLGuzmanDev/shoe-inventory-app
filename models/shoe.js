@@ -15,12 +15,12 @@ const ShoeSchema = new Schema({
     required: true,
     min: 0,
   },
-  Brand: {
+  brand: {
     type: mongoose.Types.ObjectId,
     ref: 'Brand',
     required: true,
   },
-  Category: {
+  category: {
     type: mongoose.Types.ObjectId,
     ref: 'Category',
     required: true,
