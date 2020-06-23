@@ -32,7 +32,7 @@ const ShoeSchema = new Schema({
 });
 
 ShoeSchema.virtual('url').get(function () {
-  return `/shoes/shoe/${this._id}`;
+  return `/shoes/${this._id}`;
 });
 
 module.exports = mongoose.model('Shoe', ShoeSchema);

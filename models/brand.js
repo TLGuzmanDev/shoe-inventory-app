@@ -18,7 +18,7 @@ const BrandSchema = new Schema({
 });
 
 BrandSchema.virtual('url').get(function () {
-  return `/shoes/brand/${this._id}`;
+  return `/brands/${this._id}`;
 });
 
 module.exports = mongoose.model('Brand', BrandSchema);

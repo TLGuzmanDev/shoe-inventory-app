@@ -25,7 +25,7 @@ const ShoeInstanceSchema = new Schema({
 });
 
 ShoeInstanceSchema.virtual('url').get(function () {
-  return `/shoes/shoeinstance/${this._id}`;
+  return `/shoeinstances/${this._id}`;
 });
 
 module.exports = mongoose.model('ShoeIntance', ShoeInstanceSchema);
