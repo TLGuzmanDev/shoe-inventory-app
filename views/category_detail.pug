@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1.display-4.text-center= title
+  ul.list-group
+    each shoe in shoes
+      a.list-group-item.list-group-item-action(href=shoe.url)= shoe.name
