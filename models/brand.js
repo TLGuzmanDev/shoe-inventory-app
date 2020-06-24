@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -19,6 +20,10 @@ const BrandSchema = new Schema({
 
 BrandSchema.virtual('url').get(function () {
   return `/brands/${this._id}`;
+});
+
+BrandSchema.virtual('founded_f').get(function () {
+  return moment(this.founded).format('YYYY');
 });
 
 module.exports = mongoose.model('Brand', BrandSchema);

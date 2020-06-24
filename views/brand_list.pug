@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1.display-4.text-center= title
+  ul.list-group
+    each brand in brands
+      a.list-group-item.list-group-item-action(href=brand.url) #{brand.name} (est. #{brand.founded_f})
