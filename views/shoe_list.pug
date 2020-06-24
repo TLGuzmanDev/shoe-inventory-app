@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1.display-4.text-center= title
+  ul.list-group
+    if shoes
+      - shoes.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+      each shoe in shoes
+        a.list-group-item.list-group-item-action(href=shoe.url)= shoe.name
+    else
+      .list-group-item There are no shoes
