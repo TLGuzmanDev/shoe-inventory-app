@@ -10,6 +10,7 @@ const shoe_list = (req, res, next) => {
     res.render('shoe_list', { title: 'Shoes', shoes });
   });
 };
+
 const shoe_detail = (req, res, next) => {
   Shoe.findById(req.params.id, (err, shoe) => {
     if (err) {
@@ -35,7 +36,38 @@ const shoe_detail = (req, res, next) => {
   });
 };
 
+const shoe_instance_detail = (req, res, next) => {
+  ShoeInstance.findById(req.params.id)
+    .populate({
+      path: 'shoe',
+      populate: {
+        path: 'brand category',
+      },
+    })
+    .exec((err, shoeInstance) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      if (!shoeInstance) {
+        const err = new Error('ShoeInstance not found');
+        err.status = 404;
+        next(err);
+        return;
+      }
+      console.log(shoeInstance);
+      res.render('shoeInstance_detail', {
+        title: shoeInstance.shoe.name,
+        shoe: shoeInstance.shoe,
+        brand: shoeInstance.shoe.brand,
+        category: shoeInstance.shoe.category,
+        shoeInstance,
+      });
+    });
+};
+
 module.exports = {
   shoe_list,
   shoe_detail,
+  shoe_instance_detail,
 };
