@@ -16,16 +16,13 @@ const index = (req, res, next) => {
       category_count: (callback) => {
         Category.countDocuments({}, callback);
       },
-      shoeInstance_count: (callback) => {
-        ShoeInstance.countDocuments({}, callback);
-      },
     },
     (err, results) => {
       if (err) {
         next(err);
         return;
       }
-      res.render('index', { title: 'Shoe Inventory App', data: results });
+      res.render('index', { title: 'Current Inventory', data: results });
     }
   );
 };

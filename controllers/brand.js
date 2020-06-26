@@ -26,13 +26,18 @@ const brand_detail = (req, res, next) => {
       next(err);
       return;
     }
-    Shoe.find({ brand: req.params.id }, (err, shoe_list) => {
-      if (err) {
-        next(err);
-        return;
-      }
-      res.render('brand_detail', { title: brand.name, shoes: shoe_list });
-    });
+    Shoe.find({ brand: req.params.id })
+      .populate('brand category')
+      .exec((err, shoe_list) => {
+        if (err) {
+          next(err);
+          return;
+        }
+        res.render('shoe_list', {
+          title: brand.name,
+          shoes: shoe_list,
+        });
+      });
   });
 };
 

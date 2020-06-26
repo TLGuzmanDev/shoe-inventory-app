@@ -16,12 +16,24 @@ const category_detail = (req, res, next) => {
       return next(err);
     }
 
-    Shoe.find({ category: req.params.id }, (err, shoe_list) => {
-      if (err) {
-        return next(err);
-      }
-      res.render('category_detail', { title: category.name, shoes: shoe_list });
-    });
+    if (!category) {
+      const err = new Error('Category not found');
+      err.status = 404;
+      next(err);
+      return;
+    }
+
+    Shoe.find({ category: req.params.id })
+      .populate('brand category')
+      .exec((err, shoe_list) => {
+        if (err) {
+          return next(err);
+        }
+        res.render('shoe_list', {
+          title: category.name,
+          shoes: shoe_list,
+        });
+      });
   });
 };
 

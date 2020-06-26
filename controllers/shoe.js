@@ -2,13 +2,15 @@ const Shoe = require('../models/shoe');
 const ShoeInstance = require('../models/shoeInstance');
 
 const shoe_list = (req, res, next) => {
-  Shoe.find({}, (err, shoes) => {
-    if (err) {
-      next(err);
-      return;
-    }
-    res.render('shoe_list', { title: 'Shoes', shoes });
-  });
+  Shoe.find({})
+    .populate('brand category')
+    .exec((err, shoes) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      res.render('shoe_list', { title: 'Shoes', shoes });
+    });
 };
 
 const shoe_detail = (req, res, next) => {
@@ -55,12 +57,8 @@ const shoe_instance_detail = (req, res, next) => {
         next(err);
         return;
       }
-      console.log(shoeInstance);
       res.render('shoeInstance_detail', {
         title: shoeInstance.shoe.name,
-        shoe: shoeInstance.shoe,
-        brand: shoeInstance.shoe.brand,
-        category: shoeInstance.shoe.category,
         shoeInstance,
       });
     });
