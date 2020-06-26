@@ -1,0 +1,19 @@
+.caps {
+  text-transform: capitalize;
+}
+
+.wrapper {
+  height: 100vh;
+}
+
+.main-wrapper {
+  flex: 1;
+}
+
+.sidebar {
+  min-width: 14rem;
+}
+
+.content-wrapper {
+  flex: 1;
+}
