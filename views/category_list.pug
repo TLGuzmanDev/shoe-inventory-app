@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1.display-4.text-center= title
-  ul.list-group
-    each val in results
-      a.list-group-item.list-group-item-action(href=val.url)= val.name
+
+  .container
+    ul.list-group
+      each val in results
+        a.list-group-item.list-group-item-action.caps(href=val.url)= val.name

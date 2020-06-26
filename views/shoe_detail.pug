@@ -2,6 +2,10 @@ extends layout
 
 block content
   h1.display-4.text-center= title
-  ul.list-group
-    each shoe in shoeInstances
-      a.list-group-item.list-group-item-action(href=shoe.url) size: #{shoe.size}  (#{shoe.stock})
+
+  .container
+    if shoeInstances
+      each shoe in shoeInstances
+        a.list-group-item.list-group-item-action(href=shoe.url) size: #{shoe.size}  (#{shoe.stock})
+    else
+      li.list-group-item No shoe instances available

@@ -1,24 +1,22 @@
 extends layout
 
 block content
-  h1.display-4.text-center= title
-  p.text-center Welcome to #{title}
+  h3.text-center.m-3= title
 
-  ul.list-group
-    a(href='/shoes')
-      li.list-group-item.d-flex.justify-content-between.align-items-center
-        | Shoes
-        span.badge.badge-primary.badge-pill= data.shoe_count
-    a(href='/brands')
-      li.list-group-item.d-flex.justify-content-between.align-items-center
-        | Brands
-        span.badge.badge-primary.badge-pill= data.brand_count
-    a(href='/categories')
-      li.list-group-item.d-flex.justify-content-between.align-items-center
-        | Categories
-        span.badge.badge-primary.badge-pill= data.category_count
-    a(href='/shoeinstances')
-      li.list-group-item.d-flex.justify-content-between.align-items-center
-        | Shoes Instances
-        span.badge.badge-primary.badge-pill= data.shoeInstance_count
-  
+  .container.d-flex.flex-wrap.justify-content-center
+    .card.shadow-sm.m-1(style="width: 12rem")
+      .card-body
+        h4.card-title.ml-2 Shoes
+        h1.display-4.card-text.ml-2= data.shoe_count
+        a.btn.btn-primary.btn-sm.btn-block.stretched-link(href="/shoes") VIEW
+    .card.shadow-sm.m-1(style="width: 12rem")
+      .card-body
+        h4.card-title.ml-2 Brands
+        h1.display-4.card-text.ml-2= data.brand_count
+        a.btn.btn-primary.btn-sm.btn-block.stretched-link(href="/brands") VIEW
+    .card.shadow-sm.m-1(style="width: 12rem")
+      .card-body
+        h4.card-title.ml-2 Categories
+        h1.display-4.card-text.ml-2= data.category_count
+        a.btn.btn-primary.btn-sm.btn-block.stretched-link(href="/categories") VIEW
+
