@@ -28,4 +28,8 @@ ShoeInstanceSchema.virtual('url').get(function () {
   return `/shoes/shoeinstance/${this._id}`;
 });
 
+ShoeInstanceSchema.virtual('updated_f').get(function () {
+  return moment(this.updated).format('MMM DD YYYY');
+});
+
 module.exports = mongoose.model('ShoeIntance', ShoeInstanceSchema);

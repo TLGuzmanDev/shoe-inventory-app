@@ -35,4 +35,8 @@ ShoeSchema.virtual('url').get(function () {
   return `/shoes/${this._id}`;
 });
 
+ShoeSchema.virtual('updated_f').get(function () {
+  return moment(this.updated).format('MMM DD YYYY');
+});
+
 module.exports = mongoose.model('Shoe', ShoeSchema);

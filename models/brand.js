@@ -26,4 +26,8 @@ BrandSchema.virtual('founded_f').get(function () {
   return moment(this.founded).format('YYYY');
 });
 
+BrandSchema.virtual('updated_f').get(function () {
+  return moment(this.updated).format('MMM DD YYYY');
+});
+
 module.exports = mongoose.model('Brand', BrandSchema);
