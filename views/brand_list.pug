@@ -8,6 +8,7 @@ block content
 
   .container.d-flex.flex-wrap.justify-content-center
     if brands
+      - brands.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
       each brand in brands
         .card.shadow-sm.m-1(style="width: 14rem")
           .card-body

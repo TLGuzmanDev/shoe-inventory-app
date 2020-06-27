@@ -1,11 +1,33 @@
 extends layout
 
 block content
-  h1.display-4.text-center= title
+  .container   
+    h3.mt-3= title
+    hr
 
-  .container
     if shoeInstances
-      each shoe in shoeInstances
-        a.list-group-item.list-group-item-action(href=shoe.url) size: #{shoe.size}  (#{shoe.stock})
+      - shoeInstances.sort(function(a, b) {let textA = Number(a.size); let textB = Number(b.size); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+            
+      a.h4.text-dark.caps(href=shoe.brand.url)= shoe.brand.name
+      h5.caps.mb-1= shoe.name
+      a.text-dark.caps.mb-1(href=shoe.category.url)= shoe.category.name
+      p.text-dark $#{shoe.price}
+    
+      .table-responsive-xl
+        table.table.table-hover
+          thead.thead-light
+            tr
+              th(scope='col') Size
+              th(scope='col') Stock
+              th(scope='col') Last Updated
+              th(scope='col')
+            tbody
+              each shoe in shoeInstances
+                tr
+                  td= shoe.size
+                  td= shoe.stock
+                  td= shoe.updated_f
+                  td
+                    a.btn.btn-sm.btn-primary(href=shoe.url) Edit
     else
       li.list-group-item No shoe instances available
