@@ -7,3 +7,22 @@ block content
     ul.list-group
       each val in results
         a.list-group-item.list-group-item-action.caps(href=val.url)= val.name
+
+block content
+  .d-flex.justify-content-center.align-items-center.m-3
+    h3= title
+    a.btn.btn-sm.btn-outline-primary.ml-2(href="#" type="button")
+      i.fas.fa-plus
+
+  .container.d-flex.flex-wrap.justify-content-center
+    if categories
+      each category in categories
+        .card.shadow-sm.m-1(style="width: 14rem")
+          .card-body
+            h5.card-title.caps.mb-1= category.name
+            p.card-text.text-muted.small last updated: #{category.updated_f}
+            a.btn.btn-sm.btn-success.mr-1(href=category.url) View
+            a.btn.btn-sm.btn-primary.mr-1(href="#") Edit
+            a.btn.btn-sm.btn-danger(href="#") Delete
+    else
+      p No categories available

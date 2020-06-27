@@ -2,11 +2,14 @@ const Category = require('../models/category');
 const Shoe = require('../models/shoe');
 
 const category_list = (req, res, next) => {
-  Category.find({}, (err, results) => {
+  Category.find({}, (err, categories) => {
     if (err) {
       return next(err);
     }
-    res.render('category_list', { title: 'Categories', results });
+    res.render('category_list', {
+      title: 'Categories',
+      categories,
+    });
   });
 };
 
