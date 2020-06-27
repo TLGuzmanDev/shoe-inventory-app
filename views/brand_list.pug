@@ -9,10 +9,12 @@ block content
   .container.d-flex.flex-wrap.justify-content-center
     if brands
       each brand in brands
-        .card.shadow-sm.m-1(style="width: 12rem")
+        .card.shadow-sm.m-1(style="width: 14rem")
           .card-body
-            h5.card-title.caps.mb-1= brand.name
-            p.card-text.text-muted est. #{brand.founded_f}
+            h5.card-title.caps.mb-0= brand.name
+            p.card-text.text-muted.mb-1 est. #{brand.founded_f}
+            p.card-text.text-muted.small last updated: #{brand.updated_f}
+            a.btn.btn-sm.btn-success.mr-1(href=brand.url) View
             a.btn.btn-sm.btn-primary.mr-1(href="#") Edit
             a.btn.btn-sm.btn-danger(href="#") Delete
     else
