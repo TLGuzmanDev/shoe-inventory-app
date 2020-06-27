@@ -1,19 +1,26 @@
 extends layout
 
 block content
-  h1.display-4.text-center.caps= title
-  
+  .d-flex.justify-content-center.align-items-center.m-3
+    h3.caps= title
+    a.btn.btn-sm.btn-outline-primary.ml-2(href="#" type="button")
+      i.fas.fa-plus
+
   .container.d-flex.flex-wrap.justify-content-center
     if shoes
       - shoes.sort(function(a, b) {let textA = a.brand.name.toUpperCase(); let textB = b.brand.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
-      each shoe in shoes
-        .card.m-1(style='width: 16rem;')
-          .card-body
-            h5.card-title.mb-0.caps= shoe.brand.name
-            h6.card-title.mb-1.caps= shoe.name
-            p.card-text.mb-0.caps= shoe.category.name
-            p.card-text $#{shoe.price}
-            a.btn.btn-primary.btn-sm.mr-1(href=shoe.url) Stock
-            a.btn.btn-primary.btn-sm(href='#') Edit
-      else
-        .list-group-item There are no #{title}
+        each shoe in shoes
+          .card.shadow-sm.m-1(style="width: 14rem")
+            .card-body.d-flex.flex-column
+              a.h5.text-dark.card-title.caps.mb-0(href=shoe.brand.url)= shoe.brand.name
+              h6.card-title.caps.mb-1= shoe.name
+              a.card-text.text-muted.caps.mb-1(href=shoe.category.url)= shoe.category.name
+              p.card-text.text-muted.small $#{shoe.price}
+              .d-flex.flex-column.mt-auto
+                p.card-text.text-muted.small last updated: #{shoe.updated_f}
+                .d-flex
+                  a.btn.btn-sm.btn-success.mr-1(href=shoe.url) View
+                  a.btn.btn-sm.btn-primary.mr-1(href="#") Edit
+                  a.btn.btn-sm.btn-danger(href="#") Delete
+    else
+      p No shoes available
