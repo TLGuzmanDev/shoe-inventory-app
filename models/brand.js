@@ -19,7 +19,7 @@ const BrandSchema = new Schema({
 });
 
 BrandSchema.virtual('url').get(function () {
-  return `/brands/${this._id}`;
+  return `/brands/brand/${this._id}`;
 });
 
 BrandSchema.virtual('founded_f').get(function () {

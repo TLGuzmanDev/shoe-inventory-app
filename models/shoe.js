@@ -33,7 +33,7 @@ const ShoeSchema = new Schema({
 });
 
 ShoeSchema.virtual('url').get(function () {
-  return `/shoes/${this._id}`;
+  return `/shoes/shoe/${this._id}`;
 });
 
 ShoeSchema.virtual('updated_f').get(function () {

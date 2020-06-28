@@ -15,7 +15,7 @@ const CategorySchema = new Schema({
 });
 
 CategorySchema.virtual('url').get(function () {
-  return `/categories/${this._id}`;
+  return `/categories/category/${this._id}`;
 });
 
 CategorySchema.virtual('updated_f').get(function () {
