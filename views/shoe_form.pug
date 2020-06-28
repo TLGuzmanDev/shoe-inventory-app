@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  .container
+    .row.d-flex.justify-content-center
+      .col-md-6
+        h3.mt-3= title
+        hr
+        form(method='POST', action='')
+          .form-group
+            label(for='name') Shoe name
+            input#name.form-control(type='text' name="name" placeholder='Enter shoe name' value=(shoe ? shoe.name : '') required)
+
+          .form-group
+            label(for='brand') Shoe brand
+            select#brand.form-control(type="select" name="brand")
+              option(value="" selected) Select brand
+              if brands
+                each brand in brands
+                  option(value=brand.id)= brand.name
+
+          .form-group
+            label(for='category') Shoe category
+            select#category.form-control(type="select" name="category")
+              option(value="" selected) Select category
+              if categories
+                each category in categories
+                  option(value=category.id)= category.name
+
+          .form-group
+            label(for='description') Shoe description
+            textarea#description.form-control(name="description" placeholder='Enter shoe description' rows="3" value=(shoe ? shoe.description : ''))
+
+          .form-group
+            label(for='price') Shoe price
+            .input-group
+              .input-group-prepend
+                .input-group-text $
+              input#price.form-control(type='number' name="price" placeholder='Enter shoe price' value=(shoe ? shoe.price : '0.00') min="0" step="0.01" data-number-to-fixed="2" required)
+
+          button.btn.btn-primary.btn-block(type='submit') CREATE
+        
+        if errors
+          each error in errors
+            .alert.alert-danger.alert-dismissible.fade.show.mt-2= error.msg
+              button.close(type="button" data-dismiss="alert" aria-label="Close")
+                span(aria-hidden="true") &times;
+              
