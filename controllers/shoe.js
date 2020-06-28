@@ -41,34 +41,7 @@ const shoe_detail = (req, res, next) => {
     });
 };
 
-const shoe_instance_detail = (req, res, next) => {
-  ShoeInstance.findById(req.params.id)
-    .populate({
-      path: 'shoe',
-      populate: {
-        path: 'brand category',
-      },
-    })
-    .exec((err, shoeInstance) => {
-      if (err) {
-        next(err);
-        return;
-      }
-      if (!shoeInstance) {
-        const err = new Error('ShoeInstance not found');
-        err.status = 404;
-        next(err);
-        return;
-      }
-      res.render('shoeInstance_detail', {
-        title: shoeInstance.shoe.name,
-        shoeInstance,
-      });
-    });
-};
-
 module.exports = {
   shoe_list,
   shoe_detail,
-  shoe_instance_detail,
 };
