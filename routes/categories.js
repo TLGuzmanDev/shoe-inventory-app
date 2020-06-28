@@ -7,7 +7,7 @@ router.get('/', (req, res, next) => {
   categoryController.category_list(req, res, next);
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/category/:id', (req, res, next) => {
   categoryController.category_detail(req, res, next);
 });
 
