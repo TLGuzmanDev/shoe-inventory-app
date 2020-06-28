@@ -7,7 +7,7 @@ block content
       i.fas.fa-plus
 
   .container.d-flex.flex-wrap.justify-content-center
-    if shoes
+    if (shoes !== null && shoes.length > 0)
       - shoes.sort(function(a, b) {let textA = a.brand.name.toUpperCase(); let textB = b.brand.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
         each shoe in shoes
           .card.shadow-sm.m-1(style="width: 14rem")

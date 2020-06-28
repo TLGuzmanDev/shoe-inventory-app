@@ -3,11 +3,11 @@ extends layout
 block content
   .d-flex.justify-content-center.align-items-center.m-3
     h3= title
-    a.btn.btn-sm.btn-outline-primary.ml-2(href="#" type="button")
+    a.btn.btn-sm.btn-outline-primary.ml-2(href="/brands/brand/create" type="button")
       i.fas.fa-plus
 
   .container.d-flex.flex-wrap.justify-content-center
-    if brands
+    if (brands !== null && brands.length > 0)
       - brands.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
       each brand in brands
         .card.shadow-sm.m-1(style="width: 14rem")
@@ -16,7 +16,7 @@ block content
             p.card-text.text-muted.mb-1 est. #{brand.founded_f}
             p.card-text.text-muted.small last updated: #{brand.updated_f}
             a.btn.btn-sm.btn-success.mr-1(href=brand.url) View
-            a.btn.btn-sm.btn-primary.mr-1(href="#") Edit
-            a.btn.btn-sm.btn-danger(href="#") Delete
+            a.btn.btn-sm.btn-primary.mr-1(href=brand.url + '/update') Edit
+            a.btn.btn-sm.btn-danger(href=brand.url + '/delete') Delete
     else
       p No brands available
