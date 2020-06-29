@@ -15,4 +15,8 @@ router.get('/shoe/:id', (req, res, next) => {
   shoeController.shoe_detail(req, res, next);
 });
 
+router.get('/shoe/:id/create', shoeController.shoeInstance_create_get);
+
+router.post('/shoe/:id/create', shoeController.shoeInstance_create_post);
+
 module.exports = router;

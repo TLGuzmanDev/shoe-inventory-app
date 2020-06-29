@@ -29,8 +29,31 @@ block content
                   td= shoe.updated_f
                   td
                     a.btn.btn-sm.btn-primary(href="#") Edit
-              
-      a.btn.btn-primary(href=(shoe.url + '/create')) Add Stock
 
     else
       li.list-group-item No shoe instances available
+
+    
+    .row
+      .col-lg-4          
+        h3.mt-3 Create shoe instance
+        hr
+        form(method='POST', action='')
+          .form-group
+            label(for='size') Shoe size
+            select#size.form-control(type="select" name="size" data-size="5" )
+              option(value="" selected) Select size
+              each val in [8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 13, 14, 15]
+                option(value=val)= val
+
+          .form-group
+            label(for='stock') Shoe stock
+            input#stock.form-control(type='number' name="stock" value="1" min="0" max="99" required)
+
+          button.btn.btn-primary.btn-block(type='submit') CREATE
+
+        if errors
+          each error in errors
+            .alert.alert-danger.alert-dismissible.fade.show.mt-2= error.msg
+              button.close(type="button" data-dismiss="alert" aria-label="Close")
+                span(aria-hidden="true") &times;

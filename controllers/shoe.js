@@ -4,6 +4,7 @@ const Shoe = require('../models/shoe');
 const ShoeInstance = require('../models/shoeInstance');
 const Brand = require('../models/brand');
 const Category = require('../models/category');
+const { invalid } = require('moment');
 
 const shoe_list = (req, res, next) => {
   Shoe.find({})
@@ -134,9 +135,126 @@ const shoe_create_post = [
   },
 ];
 
+const shoeInstance_create_get = (req, res, next) => {
+  Shoe.findById(req.params.id)
+    .populate('brand category')
+    .exec((err, shoe) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      if (!shoe) {
+        const err = new Error('Shoe not found');
+        err.status = 404;
+        next(err);
+        return;
+      }
+      ShoeInstance.find({ shoe: shoe.id }, (err, shoeInstances) => {
+        if (err) {
+          next(err);
+          return;
+        }
+        res.render('shoeInstance_form', {
+          title: 'Shoe Information',
+          shoe,
+          shoeInstances,
+        });
+      });
+    });
+};
+
+const shoeInstance_create_post = [
+  validator.body('size', 'invalid size selected').trim().isLength({ min: 1 }),
+  validator
+    .body('stock', 'Invalid stock value')
+    .trim()
+    .isNumeric()
+    .isLength({ min: 1 }),
+  validator.body('*').escape(),
+
+  (req, res, next) => {
+    // get shoe object in which we are creating the new instance of
+    Shoe.findById(req.params.id)
+      .populate('brand category')
+      .exec((err, shoe) => {
+        if (err) {
+          next(err);
+          return;
+        }
+        if (!shoe) {
+          const err = new Error('Shoe not found');
+          err.status = 404;
+          next(err);
+          return;
+        }
+
+        const errors = validator.validationResult(req);
+
+        const shoeInstance = new ShoeInstance({
+          shoe: shoe,
+          size: req.body.size,
+          stock: req.body.stock,
+        });
+
+        // if errors occured in the validation
+        // re render shoeinstance form with errors
+        if (!errors.isEmpty()) {
+          ShoeInstance.find({ shoe: shoe.id }, (err, shoeInstance_list) => {
+            res.render('shoeInstance_form', {
+              title: 'Shoe Information',
+              shoeInstances: shoeInstance_list,
+              shoe,
+              errors: errors.array(),
+            });
+          });
+          return;
+        } else {
+          // no errors in validation
+          // check if size has already been used
+          ShoeInstance.findOne(
+            { shoe: shoe.id, size: shoeInstance.size },
+            (err, found_shoeInstance) => {
+              if (err) {
+                next(err);
+                return;
+              }
+              // if size already exist
+              // re render shoeinstance form with errors
+              if (found_shoeInstance) {
+                ShoeInstance.find(
+                  { shoe: shoe.id },
+                  (err, shoeInstance_list) => {
+                    res.render('shoeInstance_form', {
+                      title: 'Shoe Information',
+                      shoeInstances: shoeInstance_list,
+                      shoe,
+                      errors: [{ msg: 'Shoe size has already been created' }],
+                    });
+                  }
+                );
+                return;
+              } else {
+                // save shoe instance to db and redirect to the shoe detail page
+                shoeInstance.save((err) => {
+                  if (err) {
+                    next(err);
+                    return;
+                  }
+                  res.redirect(shoe.url);
+                });
+              }
+            }
+          );
+        }
+      });
+  },
+];
+
 module.exports = {
   shoe_list,
   shoe_detail,
   shoe_create_get,
   shoe_create_post,
+  shoeInstance_create_get,
+  shoeInstance_create_post,
 };
